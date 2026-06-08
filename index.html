@@ -3,34 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>팩트체크</title>
+    <title>FactFake - 민주주의를 지키는 팩트체크 위키</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <div class="slider round"></div>
-        </label>
-    </div>
+    <header id="site-header">
+        <div class="header-content">
+            <h1 id="logo">Fact<span>Fake</span></h1>
+            <div class="search-wrapper">
+                <input type="text" id="search-input" placeholder="카테고리 또는 이슈 검색...">
+                <button id="search-btn">🔍</button>
+            </div>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+            </div>
+        </div>
+    </header>
+
     <div id="landing-page">
         <div class="quote-container">
-            <p class="quote">"정치적으로, 진실은 자신이 좋아하지 않는다고 해서 사실적 진실을 다른 의견으로 취급하는 사람들에 의해 무력화됩니다."</p>
+            <p class="quote">"생각하지 않는 것이야말로 인간이 저지를 수 있는 가장 큰 죄악 중 하나이다."</p>
             <p class="author">- 한나 아렌트</p>
         </div>
-        <button id="fact-check-btn">팩트체크하기</button>
+        <button id="fact-check-btn">팩트체크 시작하기</button>
     </div>
 
     <div id="main-content" style="display: none;">
-        <aside id="sidebar">
-            <h2>카테고리</h2>
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h2>카테고리</h2>
+            </div>
             <ul id="category-list"></ul>
             <div id="critical-thinking-section">
-                <h3>비판적 사고력 기르기</h3>
+                <h3>💡 비판적 사고 가이드</h3>
             </div>
-        </aside>
+        </nav>
         <main id="qa-container">
-            <!-- Q&A content will be injected here -->
+            <div id="content-header">
+                <h2 id="current-category-title">환영합니다</h2>
+                <div id="article-toc"></div>
+            </div>
+            <div id="article-body">
+                <!-- Content will be injected here -->
+            </div>
         </main>
     </div>
 
