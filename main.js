@@ -6,6 +6,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const qaContainer = document.getElementById('qa-container');
     const criticalThinkingSection = document.getElementById('critical-thinking-section');
     const themeSwitch = document.getElementById('checkbox');
+    const quoteText = document.querySelector('.quote');
+    const quoteAuthor = document.querySelector('.author');
+
+    const quotes = [
+        {
+            text: "정치적으로, 진실은 자신이 좋아하지 않는다고 해서 사실적 진실을 다른 의견으로 취급하는 사람들에 의해 무력화됩니다.",
+            author: "- 한나 아렌트"
+        },
+        {
+            text: "악은 사유의 부재에서 온다. 스스로 생각하기를 포기할 때, 인간은 누구나 평범한 악이 될 수 있다.",
+            author: "- 한나 아렌트"
+        },
+        {
+            text: "선동은 논리적 사고가 멈춘 곳에서 시작된다. 비판적 거리를 두지 못하는 대중은 언제나 권력의 먹잇감이 된다.",
+            author: "- 한나 아렌트"
+        },
+        {
+            text: "사실에 대한 진실이 사라진 곳에는 허구와 기만이 그 자리를 차지하며, 이는 자유를 파괴하는 첫걸음이다.",
+            author: "- 한나 아렌트"
+        },
+        {
+            text: "비판적 사고가 없는 복종은 도덕적 책임감을 마비시킨다.",
+            author: "- 한나 아렌트"
+        },
+        {
+            text: "생각하지 않는 것이야말로 인간이 저지를 수 있는 가장 큰 죄악 중 하나이다.",
+            author: "- 한나 아렌트"
+        }
+    ];
+
+    function displayRandomQuote() {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        const randomQuote = quotes[randomIndex];
+        quoteText.textContent = `"${randomQuote.text}"`;
+        quoteAuthor.textContent = randomQuote.author;
+    }
+
+    displayRandomQuote();
 
 const factCheckData = {
         '부정선거 음모론': [
