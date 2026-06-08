@@ -1,14 +1,39 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팩트체크</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+        </label>
+    </div>
+    <div id="landing-page">
+        <div class="quote-container">
+            <p class="quote">"정치적으로, 진실은 자신이 좋아하지 않는다고 해서 사실적 진실을 다른 의견으로 취급하는 사람들에 의해 무력화됩니다."</p>
+            <p class="author">- 한나 아렌트</p>
+        </div>
+        <button id="fact-check-btn">팩트체크하기</button>
+    </div>
+
+    <div id="main-content" style="display: none;">
+        <aside id="sidebar">
+            <h2>카테고리</h2>
+            <ul id="category-list"></ul>
+            <div id="critical-thinking-section">
+                <h3>비판적 사고력 기르기</h3>
+            </div>
+        </aside>
+        <main id="qa-container">
+            <!-- Q&A content will be injected here -->
+        </main>
+    </div>
+
+    <script src="main.js"></script>
 </body>
 </html>
