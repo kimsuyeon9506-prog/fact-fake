@@ -37,15 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function displayRandomQuote() {
-        const randomIndex = Math.floor(Math.random() * quotes.length);
-        const randomQuote = quotes[randomIndex];
-        quoteText.textContent = `"${randomQuote.text}"`;
-        quoteAuthor.textContent = randomQuote.author;
+        if (quoteText && quoteAuthor) {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const randomQuote = quotes[randomIndex];
+            quoteText.textContent = `"${randomQuote.text}"`;
+            quoteAuthor.textContent = randomQuote.author;
+        }
     }
 
     displayRandomQuote();
 
-const factCheckData = {
+    const factCheckData = {
         '부정선거 음모론': [
             {
                 title: '4.15 총선 부정선거 의혹',
@@ -113,7 +115,7 @@ const factCheckData = {
                     <p>현재 관련 재판이 진행 중이며, 법정 공방이 치열합니다. 의혹만으로 확정적 사실인 양 퍼뜨리는 행위는 주의가 필요합니다.</p>
                 `,
                 references: [
-                    { text: '뉴스타파 대장동 사건 핵심 기록 공개', url: 'https://newstapa.org/' },
+                    { text: '뉴스타파 대장동 사건 핵심 기록 기록', url: 'https://newstapa.org/' },
                     { text: '이재명 대표 측 공식 입장문', url: '#' }
                 ]
             }
@@ -195,7 +197,7 @@ const factCheckData = {
 
     const criticalThinkingContent = {
         title: '비판적 사고력 기르기',
-        content: \`
+        content: `
             <p>비판적 사고는 정보를 맹목적으로 받아들이지 않고, 능동적으로 분석하고 평가하는 능력입니다. 다음은 일상에서 비판적 사고력을 기르는 몇 가지 방법입니다.</p>
             <ul>
                 <li><strong>출처 확인하기:</strong> 정보는 어디에서 왔는가? 신뢰할 수 있는 기관이나 전문가가 제공한 정보인가?</li>
@@ -204,10 +206,11 @@ const factCheckData = {
                 <li><strong>반론 탐색하기:</strong> 모든 주장에는 반대 의견이 있을 수 있다. 반대편의 논리와 근거는 무엇인지 적극적으로 찾아본다.</li>
                 <li><strong>확증 편향 경계하기:</strong> 내가 이미 믿고 있는 것과 일치하는 정보만 선별적으로 받아들이는 경향을 주의해야 합니다.</li>
             </ul>
-        \`
+        `
     };
 
     function displayCategories() {
+        if (!categoryList) return;
         categoryList.innerHTML = '';
         for (const category in factCheckData) {
             const li = document.createElement('li');
@@ -222,8 +225,10 @@ const factCheckData = {
     }
 
     function displayQA(category) {
+        if (!qaContainer) return;
         qaContainer.innerHTML = '';
         const items = factCheckData[category];
+        if (!items) return;
         items.forEach(item => {
             const qaItem = document.createElement('div');
             qaItem.classList.add('qa-item');
@@ -241,15 +246,17 @@ const factCheckData = {
             references.classList.add('references');
             references.innerHTML = '<h4>참고 자료 및 출처</h4>';
             const refList = document.createElement('ul');
-            item.references.forEach(ref => {
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.textContent = ref.text;
-                a.href = ref.url;
-                a.target = '_blank';
-                li.appendChild(a);
-                refList.appendChild(li);
-            });
+            if (item.references) {
+                item.references.forEach(ref => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.textContent = ref.text;
+                    a.href = ref.url;
+                    a.target = '_blank';
+                    li.appendChild(a);
+                    refList.appendChild(li);
+                });
+            }
             references.appendChild(refList);
 
             qaItem.appendChild(title);
@@ -257,12 +264,11 @@ const factCheckData = {
             qaItem.appendChild(references);
             qaContainer.appendChild(qaItem);
         });
-        // Scroll to top of container
         qaContainer.scrollTop = 0;
     }
 
-
     function displayCriticalThinking() {
+        if (!qaContainer) return;
         qaContainer.innerHTML = '';
         const content = document.createElement('div');
         content.classList.add('qa-item');
@@ -271,7 +277,6 @@ const factCheckData = {
         document.querySelectorAll('#category-list li').forEach(item => item.classList.remove('active'));
     }
 
-    // Theme switching logic
     function switchTheme(e) {
         if (e.target.checked) {
             document.body.classList.add('dark-mode');
@@ -282,29 +287,35 @@ const factCheckData = {
         }
     }
 
-    themeSwitch.addEventListener('change', switchTheme, false);
+    if (themeSwitch) {
+        themeSwitch.addEventListener('change', switchTheme, false);
+    }
 
-    // Check for saved theme preference
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme) {
         if (currentTheme === 'dark') {
             document.body.classList.add('dark-mode');
-            themeSwitch.checked = true;
+            if (themeSwitch) themeSwitch.checked = true;
         }
     }
 
-    factCheckBtn.addEventListener('click', () => {
-        landingPage.style.display = 'none';
-        mainContent.style.display = 'flex';
-        displayCategories();
-        // Display the first category by default
-        const firstCategory = Object.keys(factCheckData)[0];
-        displayQA(firstCategory);
-        document.querySelector('#category-list li').classList.add('active');
-    });
+    if (factCheckBtn) {
+        factCheckBtn.addEventListener('click', () => {
+            if (landingPage) landingPage.style.display = 'none';
+            if (mainContent) mainContent.style.display = 'flex';
+            displayCategories();
+            const categories = Object.keys(factCheckData);
+            if (categories.length > 0) {
+                displayQA(categories[0]);
+                const firstLi = document.querySelector('#category-list li');
+                if (firstLi) firstLi.classList.add('active');
+            }
+        });
+    }
 
-    criticalThinkingSection.addEventListener('click', () => {
-        displayCriticalThinking();
-    });
-
+    if (criticalThinkingSection) {
+        criticalThinkingSection.addEventListener('click', () => {
+            displayCriticalThinking();
+        });
+    }
 });
